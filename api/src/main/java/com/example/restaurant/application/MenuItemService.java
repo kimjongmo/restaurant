@@ -16,9 +16,17 @@ public class MenuItemService {
     }
 
     public void bulkUpdate(Long restaurantId, List<MenuItem> menuItems){
-        menuItems.stream().forEach(menuItem -> {
-            menuItem.setRestaurantId(restaurantId);
-            menuItemRepository.save(menuItem);
-        });
+        for(MenuItem menu : menuItems){
+            update(restaurantId,menu);
+        }
+    }
+
+    private void update(Long restaurantId, MenuItem menuItem){
+        if(menuItem.isDestroy()){
+            menuItemRepository.deleteById(menuItem.getId());
+            return;
+        }
+        menuItem.setRestaurantId(restaurantId);
+        menuItemRepository.save(menuItem);
     }
 }

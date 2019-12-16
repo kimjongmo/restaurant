@@ -1,10 +1,12 @@
 package com.example.restaurant.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 @Setter
@@ -22,7 +24,8 @@ public class MenuItem {
 
     private String name;
 
-    public MenuItem(String name) {
-        this.name = name;
-    }
+    @Transient
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private boolean destroy;
+
 }

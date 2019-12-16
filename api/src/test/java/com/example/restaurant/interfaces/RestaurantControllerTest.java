@@ -4,6 +4,7 @@ import com.example.restaurant.application.RestaurantService;
 import com.example.restaurant.domain.MenuItem;
 import com.example.restaurant.domain.Restaurant;
 import com.example.restaurant.domain.RestaurantNotFoundException;
+import com.example.restaurant.domain.Review;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -59,38 +60,22 @@ public class RestaurantControllerTest {
     @Test
     public void detailWithExisted() throws Exception {
 
-        List<Restaurant> restaurants = new ArrayList<>();
-        Restaurant restaurant1 = Restaurant.builder()
+        Restaurant restaurant = Restaurant.builder()
                 .id(1004L)
                 .name("Bob zip")
                 .address("Seoul")
                 .build();
-        restaurant1.setMenuItems(Arrays.asList(MenuItem.builder().name("kimchi").build()));
-        Restaurant restaurant2 = Restaurant.builder()
-                .id(1005L)
-                .name("Bob zip")
-                .address("Seoul")
-                .build();
-        restaurant2.setMenuItems(Arrays.asList(MenuItem.builder().name("kimchi").build()));
-        given(restaurantService.getRestaurant(1004L)).willReturn(restaurant1);
-        given(restaurantService.getRestaurant(1005L)).willReturn(restaurant2);
+        restaurant.setMenuItems(Arrays.asList(MenuItem.builder().name("kimchi").build()));
+        Review review = Review.builder().name("joker").score(4).description("Good").build();
+        restaurant.setReviews(Arrays.asList(review));
+        given(restaurantService.getRestaurant(1004L)).willReturn(restaurant);
 
-
-        Long id = 1004L;
-        mvc.perform(get("/restaurants/" + id))
+        mvc.perform(get("/restaurants/1004"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("\"name\":\"Bob zip\"")))
-                .andExpect(content().string(containsString("\"id\":" + id)))
+                .andExpect(content().string(containsString("\"id\":1004")))
                 .andExpect(content().string(containsString("kimchi")))
-        ;
-
-
-        id = 1005L;
-        mvc.perform(get("/restaurants/" + id))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("\"name\":\"Bob zip\"")))
-                .andExpect(content().string(containsString("\"id\":" + id)))
-                .andExpect(content().string(containsString("kimchi")))
+                .andExpect(content().string(containsString("Good")))
         ;
     }
 
@@ -139,7 +124,7 @@ public class RestaurantControllerTest {
                 .andExpect(status().isOk())
         ;
 
-        verify(restaurantService).updateRestaurant(1004L,"Bar","Busan");
+        verify(restaurantService).updateRestaurant(1004L, "Bar", "Busan");
     }
 
     @Test
