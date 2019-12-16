@@ -31,7 +31,11 @@ public class RestaurantServiceTest {
     }
 
     public void mockRestaurantRepository(){
-        Restaurant restaurant =  new Restaurant(1004L,"Bob zip","Seoul");
+        Restaurant restaurant =  Restaurant.builder()
+                .id(1004L)
+                .name("Bob zip")
+                .address("Seoul")
+                .build();
         List<Restaurant> restaurants = new ArrayList<>();
         restaurants.add(restaurant);
 
@@ -40,7 +44,7 @@ public class RestaurantServiceTest {
     }
 
     public void mockMenuItemRepository(){
-        MenuItem menuItem = new MenuItem("kimchi");
+        MenuItem menuItem = MenuItem.builder().name("kimchi").build();
         List<MenuItem> menuItems = new ArrayList<>();
         menuItems.add(menuItem);
 
@@ -58,6 +62,11 @@ public class RestaurantServiceTest {
         assertThat(menuItem.getName(), is("kimchi"));
     }
 
+    @Test(expected = RestaurantNotFoundException.class)
+    public void getRestaurantWithNotExisted() {
+        restaurantService.getRestaurant(404L);
+    }
+
     @Test
     public void getRestaurants() {
         List<Restaurant> restaurants = restaurantService.getRestaurants();
@@ -67,12 +76,40 @@ public class RestaurantServiceTest {
 
     @Test
     public void addRestaurant(){
-        Restaurant restaurant = new Restaurant("BeRyong","Busan");
-        Restaurant saved = new Restaurant(1234L,"BeRyong","Busan");
+        Restaurant restaurant = Restaurant.builder()
+                .name("BeRyong")
+                .address("Busan")
+                .build();
 
-        given(restaurantRepository.save(any())).willReturn(saved);
+        given(restaurantRepository.save(any())).will(invocation -> {
+            Restaurant r = invocation.getArgument(0);
+            r.setId(1234L);
+            return r;
+        });
         Restaurant created = restaurantService.addRestaurant(restaurant);
 
         assertThat(created.getId(),is(1234L));
+    }
+
+    @Test
+
+    public void updateRestaurant(){
+        Restaurant restaurant = Restaurant.builder()
+                .id(1004L)
+                .name("Bob zip")
+                .address("Seoul")
+                .build();
+        Restaurant saved = Restaurant.builder()
+                .id(1004L)
+                .name("Alcohol zip")
+                .address("Busan")
+                .build();
+        given(restaurantRepository.findById(1004L)).willReturn(Optional.of(restaurant));
+        given(restaurantRepository.save(any())).willReturn(saved);
+
+        Restaurant updated = restaurantService.updateRestaurant(1004L,"Alcohol zip","Busan");
+
+        assertThat(updated.getName(),is("Alcohol zip"));
+        assertThat(updated.getAddress(),is("Busan"));
     }
 }

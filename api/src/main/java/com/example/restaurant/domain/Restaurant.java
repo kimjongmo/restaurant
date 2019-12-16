@@ -1,26 +1,33 @@
 package com.example.restaurant.domain;
 
 
+import lombok.*;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Restaurant {
 
     @Id
     @GeneratedValue
     private Long id;
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String address;
     @Transient
     private List<MenuItem> menuItemList = new ArrayList<>();
-
-    public Restaurant() {
-    }
 
     public Restaurant(String name, String address) {
         this.name = name;
@@ -33,35 +40,16 @@ public class Restaurant {
         this.address = address;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
     public String getInformation() {
         return name + " in " + address;
     }
 
-    public List<MenuItem> getMenuItemList() {
-        return menuItemList;
+    public void setMenuItems(List<MenuItem> menuItems){
+        this.menuItemList = new ArrayList<>(menuItems);
     }
 
-    public void setMenuItemList(List<MenuItem> menuItemList) {
-        this.menuItemList = menuItemList;
-    }
-
-    public void addMenuItem(MenuItem menuItem) {
-        menuItemList.add(menuItem);
+    public void updateInformation(String name, String address) {
+        this.name = name;
+        this.address = address;
     }
 }

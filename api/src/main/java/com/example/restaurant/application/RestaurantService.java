@@ -2,8 +2,10 @@ package com.example.restaurant.application;
 
 import com.example.restaurant.domain.MenuItemRepository;
 import com.example.restaurant.domain.Restaurant;
+import com.example.restaurant.domain.RestaurantNotFoundException;
 import com.example.restaurant.domain.RestaurantRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,7 +21,9 @@ public class RestaurantService {
     }
 
     public Restaurant getRestaurant(Long id) {
-        Restaurant restaurant = restaurantRepository.findById(id).get();
+
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(()->new RestaurantNotFoundException(id));
         restaurant.setMenuItemList(menuItemRepository.findAllByRestaurantId(id));
         return restaurant;
     }
@@ -31,5 +35,13 @@ public class RestaurantService {
 
     public Restaurant addRestaurant(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
+    }
+
+    @Transactional
+    public Restaurant updateRestaurant(Long id, String name, String address) {
+        Restaurant restaurant = restaurantRepository.findById(id).get();
+        restaurant.updateInformation(name,address);
+        Restaurant updated = restaurantRepository.save(restaurant);
+        return updated;
     }
 }

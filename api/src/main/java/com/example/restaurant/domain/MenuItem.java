@@ -1,10 +1,17 @@
 package com.example.restaurant.domain;
 
+import lombok.*;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class MenuItem {
 
     @Id
@@ -15,9 +22,6 @@ public class MenuItem {
 
     private String name;
 
-    public String getName(){
-        return name;
-    }
     public MenuItem(String name) {
         this.name = name;
     }
