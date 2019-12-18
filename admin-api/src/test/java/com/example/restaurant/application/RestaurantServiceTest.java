@@ -57,7 +57,6 @@ public class RestaurantServiceTest {
     public void getRestaurants() {
         List<Restaurant> restaurants = restaurantService.getRestaurants();
 
-
         Restaurant restaurant = restaurants.get(0);
         assertThat(restaurant.getId(), is(1004L));
     }

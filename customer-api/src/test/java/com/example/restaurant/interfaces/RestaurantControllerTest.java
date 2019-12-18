@@ -47,10 +47,11 @@ public class RestaurantControllerTest {
                 .id(1004L)
                 .name("Joker house")
                 .address("Seoul")
+                .categoryId(1L)
                 .build());
-        given(restaurantService.getRestaurants()).willReturn(restaurants);
+        given(restaurantService.getRestaurants("Seoul",1L)).willReturn(restaurants);
 
-        mvc.perform(get("/restaurants"))
+        mvc.perform(get("/restaurants?region=Seoul&category=1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("\"name\":\"Joker house\"")))
                 .andExpect(content().string(containsString("\"id\":1004")))

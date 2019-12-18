@@ -1,10 +1,8 @@
 package com.example.restaurant.interfaces;
 
 import com.example.restaurant.application.RestaurantService;
-import com.example.restaurant.domain.MenuItem;
 import com.example.restaurant.domain.Restaurant;
 import com.example.restaurant.domain.RestaurantNotFoundException;
-import com.example.restaurant.domain.Review;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -16,15 +14,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(RestaurantController.class)
@@ -103,7 +100,7 @@ public class RestaurantControllerTest {
 
         mvc.perform(post("/restaurants")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"name\":\"BeRyong\",\"address\":\"Busan\"}"))
+                .content("{\"name\":\"BeRyong\",\"address\":\"Busan\",\"categoryId\":1}"))
                 .andExpect(status().isCreated())
                 .andExpect(content().string(""))
         ;
@@ -116,7 +113,7 @@ public class RestaurantControllerTest {
     public void updateValidData() throws Exception {
         mvc.perform(patch("/restaurants/1004")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"name\":\"Bar\",\"address\":\"Busan\"}"))
+                .content("{\"name\":\"Bar\",\"address\":\"Busan\",\"categoryId\":1}"))
                 .andExpect(status().isOk())
         ;
 

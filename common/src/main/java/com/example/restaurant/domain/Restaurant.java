@@ -1,6 +1,7 @@
 package com.example.restaurant.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +26,25 @@ public class Restaurant {
     @Id
     @GeneratedValue
     private Long id;
+
+    @NotNull
+    private Long categoryId;
+
     @NotEmpty
     private String name;
+
     @NotEmpty
     private String address;
+
     @Transient
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<MenuItem> menuItemList;
+
     @Transient
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Review> reviews;
+
+
 
     public Restaurant(String name, String address) {
         this.name = name;
@@ -45,6 +57,7 @@ public class Restaurant {
         this.address = address;
     }
 
+    @JsonIgnore
     public String getInformation() {
         return name + " in " + address;
     }
