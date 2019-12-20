@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-@Slf4j
 public class UserService {
 
     private BCryptPasswordEncoder passwordEncoder;
@@ -46,7 +45,6 @@ public class UserService {
     }
 
     public String encodedPassword(String password){
-        log.info("encoding... : "+password);
         return passwordEncoder.encode(password);
     }
 
@@ -59,9 +57,6 @@ public class UserService {
 
         User user = optionalUser.get();
         String encodedPassword = encodedPassword(password);
-
-        log.info("user password : "+user.getPassword());
-        log.info("request password : "+encodedPassword);
 
         if(!passwordEncoder.matches(password,user.getPassword()))
             throw new PasswordWrongException();

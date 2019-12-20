@@ -41,6 +41,13 @@ project(':common'){
     bootJar{
         enabled = false
     }
+
+    dependencies {
+        implementation 'io.jsonwebtoken:jjwt-api:0.10.7'
+        runtime 'io.jsonwebtoken:jjwt-impl:0.10.7'
+        runtime 'io.jsonwebtoken:jjwt-jackson:0.10.7'
+
+    }
 }
 project(':customer-api'){
     dependencies {

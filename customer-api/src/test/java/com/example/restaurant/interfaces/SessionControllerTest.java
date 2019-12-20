@@ -2,6 +2,7 @@ package com.example.restaurant.interfaces;
 
 import com.example.restaurant.application.UserService;
 import com.example.restaurant.domain.User;
+import com.example.restaurant.utils.JwtUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.validation.constraints.NotEmpty;
+
+import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
@@ -29,21 +33,29 @@ public class SessionControllerTest {
     @MockBean
     private UserService userService;
 
+    @MockBean
+    private JwtUtils jwtUtils;
+
     //Email, Name, Password
     @Test
     public void createWithValidData() throws Exception {
 
         String email = "tester@example.com";
         String password = "test";
-        User mockUser = User.builder().password("ACCESSTOKE").build();
+        String name = "tester";
+        Long id = 1004L;
+
+        User mockUser = User.builder().id(id).name(name).build();
         given(userService.authenticate(email,password)).willReturn(mockUser);
+        given(jwtUtils.createToken(id,name)).willReturn("header.payload.signature");
 
         mvc.perform(post("/session")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content("{\"email\":\"tester@example.com\",\"password\":\"test\"}"))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("location", "/session"))
-                .andExpect(content().string("{\"accessToken\":\"ACCESSTOKE\"}"))
+                .andExpect(content().string(containsString("{\"accessToken\":\"header.payload.signature\"")))
+                .andExpect(content().string(containsString(".")))
         ;
 
         verify(userService).authenticate(eq(email),eq(password));

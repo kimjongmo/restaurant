@@ -2,6 +2,7 @@ package com.example.restaurant.interfaces;
 
 import com.example.restaurant.application.UserService;
 import com.example.restaurant.domain.User;
+import com.example.restaurant.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,8 @@ public class SessionController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @PostMapping("/session")
     public ResponseEntity<SessionResponseDto> create(@RequestBody SessionRequestDto request) throws URISyntaxException {
@@ -23,9 +26,9 @@ public class SessionController {
         String email = request.getEmail();
         String password = request.getPassword();
 
-        User user = userService.authenticate(email,password);
+        User user = userService.authenticate(email, password);
 
-        String accessToken = user.getAccessToken();
+        String accessToken = jwtUtils.createToken(user.getId(),user.getName());
 
         SessionResponseDto sessionResponseDto = SessionResponseDto.builder()
                 .accessToken(accessToken)
