@@ -24,11 +24,15 @@ public class SessionController {
     public ResponseEntity<SessionResponseDto> create(@RequestBody SessionRequestDto request) throws URISyntaxException {
 
         String email = request.getEmail();
+
         String password = request.getPassword();
 
         User user = userService.authenticate(email, password);
 
-        String accessToken = jwtUtils.createToken(user.getId(),user.getName());
+        String accessToken = jwtUtils.createToken(
+                user.getId(),
+                user.getName(),
+                user.isRestaurantOwner() ? user.getRestaurantId() : null);
 
         SessionResponseDto sessionResponseDto = SessionResponseDto.builder()
                 .accessToken(accessToken)

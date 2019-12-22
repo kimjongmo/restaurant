@@ -61,3 +61,10 @@ project(':admin-api'){
         compile project(':common')
     }
 }
+
+project(':login-api'){
+    dependencies {
+        compile project(':common')
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+    }
+}

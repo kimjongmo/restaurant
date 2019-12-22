@@ -41,7 +41,7 @@ public class ReviewControllerTest {
         String name = "tester";
         String description = "Good";
         Integer score = 3;
-        String token = jwtUtils.createToken(id,name);
+        String token = jwtUtils.createToken(id,name,  null);
 
         given(reviewService.addReview(1L,name,score,description)).willReturn(Review.builder().id(123L).build());
 

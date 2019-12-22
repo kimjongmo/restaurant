@@ -1,10 +1,10 @@
 package com.example.restaurant.utils;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.stereotype.Component;
 
 import java.security.Key;
 
@@ -20,16 +20,19 @@ public class JwtUtils {
      * 토큰의 payload에 유저의 Id와 name 을 삽입
      * @param userId 유저의 id
      * @param name 유저의 name
+     * @param restaurantId
      * @rturn jwt token
      * */
-    public String createToken(Long userId, String name) {
-        String token = Jwts.builder()
-                .claim("userId", userId)
-                .claim("name", name)
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
+    public String createToken(Long userId, String name, Long restaurantId) {
 
-        return token;
+        JwtBuilder builder = Jwts.builder()
+                .claim("userId", userId)
+                .claim("name", name);
+
+        if(restaurantId != null)
+            builder.claim("restaurantId",restaurantId);
+
+        return builder.signWith(key, SignatureAlgorithm.HS256).compact();
     }
 
     /**

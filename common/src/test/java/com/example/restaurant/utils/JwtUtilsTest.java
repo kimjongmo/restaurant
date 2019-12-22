@@ -20,7 +20,7 @@ public class JwtUtilsTest {
 
     @Test
     public void createToken() {
-        String token = jwtUtils.createToken(1004L, "tester");
+        String token = jwtUtils.createToken(1004L, "tester",null);
         assertThat(token, containsString("."));
     }
 
@@ -29,7 +29,7 @@ public class JwtUtilsTest {
         Long userId = 1004L;
         String name = "tester";
 
-        String token = jwtUtils.createToken(userId,name);
+        String token = jwtUtils.createToken(userId,name,null);
         Claims claims = jwtUtils.getClaims(token);
 
         assertThat(claims.get("name"),is(name));
