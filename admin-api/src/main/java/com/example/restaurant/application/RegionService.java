@@ -1,10 +1,9 @@
 package com.example.restaurant.application;
 
 import com.example.restaurant.domain.Region;
-import com.example.restaurant.domain.RegionRepository;
+import com.example.restaurant.domain.repo.RegionRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

@@ -2,7 +2,6 @@ package com.example.restaurant.interfaces;
 
 import com.example.restaurant.application.RestaurantService;
 import com.example.restaurant.domain.Restaurant;
-import com.example.restaurant.domain.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

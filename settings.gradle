@@ -10,4 +10,5 @@ include 'admin-api'
 include 'common'
 include 'customer-api'
 include 'login-api'
+include 'restaurant-api'
 

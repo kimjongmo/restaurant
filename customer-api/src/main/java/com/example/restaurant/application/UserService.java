@@ -1,7 +1,7 @@
 package com.example.restaurant.application;
 
 import com.example.restaurant.domain.User;
-import com.example.restaurant.domain.UserRepository;
+import com.example.restaurant.domain.repo.UserRepository;
 import com.example.restaurant.interfaces.EmailExistedException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,7 @@
 package com.example.restaurant.application;
 
 import com.example.restaurant.domain.*;
+import com.example.restaurant.domain.repo.RestaurantRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

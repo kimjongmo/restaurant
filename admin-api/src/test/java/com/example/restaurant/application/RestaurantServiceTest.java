@@ -1,6 +1,7 @@
 package com.example.restaurant.application;
 
 import com.example.restaurant.domain.*;
+import com.example.restaurant.domain.repo.RestaurantRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

@@ -1,7 +1,7 @@
 package com.example.restaurant.application;
 
 import com.example.restaurant.domain.User;
-import com.example.restaurant.domain.UserRepository;
+import com.example.restaurant.domain.repo.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -14,7 +14,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 public class UserServiceTest {

@@ -68,3 +68,10 @@ project(':login-api'){
         implementation 'org.springframework.boot:spring-boot-starter-security'
     }
 }
+
+project(':restaurant-api'){
+    dependencies{
+        compile project(':common')
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+    }
+}

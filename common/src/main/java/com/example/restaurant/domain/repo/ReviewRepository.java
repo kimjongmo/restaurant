@@ -1,5 +1,6 @@
-package com.example.restaurant.domain;
+package com.example.restaurant.domain.repo;
 
+import com.example.restaurant.domain.Review;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

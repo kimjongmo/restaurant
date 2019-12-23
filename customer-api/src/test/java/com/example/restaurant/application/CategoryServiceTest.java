@@ -1,7 +1,7 @@
 package com.example.restaurant.application;
 
 import com.example.restaurant.domain.Category;
-import com.example.restaurant.domain.CategoryRepository;
+import com.example.restaurant.domain.repo.CategoryRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

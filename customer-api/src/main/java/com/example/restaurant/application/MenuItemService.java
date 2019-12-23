@@ -1,7 +1,7 @@
 package com.example.restaurant.application;
 
 import com.example.restaurant.domain.MenuItem;
-import com.example.restaurant.domain.MenuItemRepository;
+import com.example.restaurant.domain.repo.MenuItemRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
