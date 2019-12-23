@@ -21,3 +21,13 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+
+
+---
+
+spring:
+  profiles: mysql
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_DATABASE}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
