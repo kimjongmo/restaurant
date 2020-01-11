@@ -2,6 +2,7 @@ package com.example.restaurant.interfaces;
 
 import com.example.restaurant.application.ReservationService;
 import com.example.restaurant.domain.Reservation;
+import com.example.restaurant.interfaces.exception.TokenNotExistedException;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

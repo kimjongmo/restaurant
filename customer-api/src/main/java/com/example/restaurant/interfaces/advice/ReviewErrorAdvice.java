@@ -1,5 +1,6 @@
-package com.example.restaurant.interfaces;
+package com.example.restaurant.interfaces.advice;
 
+import com.example.restaurant.interfaces.exception.TokenNotExistedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

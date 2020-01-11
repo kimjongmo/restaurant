@@ -2,6 +2,7 @@ package com.example.restaurant.interfaces;
 
 import com.example.restaurant.application.UserService;
 import com.example.restaurant.domain.User;
+import com.example.restaurant.interfaces.exception.EmailExistedException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

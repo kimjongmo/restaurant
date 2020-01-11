@@ -1,4 +1,4 @@
-package com.example.restaurant.interfaces;
+package com.example.restaurant.interfaces.exception;
 
 public class TokenNotExistedException extends RuntimeException {
 

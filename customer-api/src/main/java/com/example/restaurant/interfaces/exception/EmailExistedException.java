@@ -1,4 +1,4 @@
-package com.example.restaurant.interfaces;
+package com.example.restaurant.interfaces.exception;
 
 public class EmailExistedException extends RuntimeException {
     public EmailExistedException(String email){

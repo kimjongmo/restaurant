@@ -1,8 +1,8 @@
 package com.example.restaurant.application;
 
-import com.example.restaurant.interfaces.EmailExistedException;
 import com.example.restaurant.domain.User;
 import com.example.restaurant.domain.repo.UserRepository;
+import com.example.restaurant.interfaces.exception.EmailExistedException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

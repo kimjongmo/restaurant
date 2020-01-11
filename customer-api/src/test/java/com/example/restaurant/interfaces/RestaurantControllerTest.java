@@ -5,6 +5,7 @@ import com.example.restaurant.domain.MenuItem;
 import com.example.restaurant.domain.Restaurant;
 import com.example.restaurant.domain.RestaurantNotFoundException;
 import com.example.restaurant.domain.Review;
+import com.example.restaurant.interfaces.advice.RestaurantErrorAdvice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;

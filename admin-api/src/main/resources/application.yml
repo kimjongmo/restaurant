@@ -21,7 +21,6 @@ spring:
     driver-class-name: org.h2.Driver
 
 ---
-
 spring:
   profiles: mysql
   datasource:

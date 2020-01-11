@@ -1,6 +1,6 @@
-package com.example.restaurant.interfaces;
+package com.example.restaurant.interfaces.advice;
 
-import com.example.restaurant.domain.RestaurantNotFoundException;
+import com.example.restaurant.interfaces.exception.EmailExistedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class RestaurantErrorAdvice {
+public class UserErrorAdvice {
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(RestaurantNotFoundException.class)
-    public String notFound(){
-        return "존재하지 않는 id 입니다.";
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(EmailExistedException.class)
+    public String emailExisted(){
+        return "이미 등록된 이메일입니다.";
     }
 
 }
